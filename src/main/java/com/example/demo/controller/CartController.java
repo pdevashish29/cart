@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.annotation.MethodStats;
 import com.example.demo.model.Cart;
 import com.example.demo.service.CartService;
 import com.example.demo.vo.DomainResponse;
@@ -19,11 +20,13 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping("carts")
+    @MethodStats
     public Mono<DomainResponse<List<Cart>>> getCarts(@RequestParam(name= "userId", required = false) Long userId){
        return cartService.getCart();
     }
 
     @GetMapping("carts/{cartId}")
+    @MethodStats
     public Mono<DomainResponse<Cart>> getCartById(@RequestParam(name= "userId", required = false) Long userId,@PathVariable(name= "cartId", required = false) Long cartId){
         return cartService.getCartsById(cartId);
     }
