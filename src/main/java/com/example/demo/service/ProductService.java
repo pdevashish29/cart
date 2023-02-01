@@ -33,16 +33,22 @@ public class ProductService {
 
     }
 
-    public Mono<DomainResponse<Product>> getProductById(Long productId){
-        String path="/products/"+productId;
-        var response= webClient.get().uri(path).retrieve().bodyToMono(Product.class);
+    public Mono<DomainResponse<Product>> getProductById(Long productId) {
+        String path = "/products/" + productId;
+       /* var response= webClient.get().uri(path).retrieve().bodyToMono(Product.class);
         var domainResponse = new DomainResponse<Product>();
         return response.flatMap(item -> {
             domainResponse.setData(item);
             return Mono.just(domainResponse);
-        });
-    }
+        });*/
+        var domainResponse = new DomainResponse<Product>();
+        return webClient.get().uri(path).retrieve()
+                .bodyToMono(Product.class).flatMap(item -> {
+                    domainResponse.setData(item);
+                    return Mono.just(domainResponse);
+                }).onErrorResume(Mono::error);
 
+    }
 
 
 }
