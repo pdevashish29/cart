@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.annotation.MethodStats;
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 import com.example.demo.vo.DomainResponse;
@@ -22,24 +23,18 @@ public class ProductController {
 
 
     @GetMapping("/products")
+    @MethodStats
     public Mono<DomainResponse<List<Product>>>  getProducts() {
         log.info("products");
-        long t1 = System.currentTimeMillis();
-        var response= productService.getProducts();
-        long t2 = System.currentTimeMillis();
-        log.info(t2-t1+"");
-        return  response;
+        return productService.getProducts();
     }
 
 
     @GetMapping("/products/{productId}")
+    @MethodStats
     public Mono<DomainResponse<Product>>  getProductsById(@PathVariable(name = "productId") Long productId) {
         log.info("product with id  "+productId);
-        long t1 = System.currentTimeMillis();
-        var response= productService.getProductById(productId);
-        long t2 = System.currentTimeMillis();
-        log.info(t2-t1+"");
-        return  response;
+        return productService.getProductById(productId);
     }
 
 
