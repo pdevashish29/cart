@@ -11,4 +11,9 @@ public class MarchController {
     public  String getIndex(){
         return  "March";
     }
+
+    @GetMapping("/march-2")
+    public  String getIndex2(){
+        return  "March-2";
+    }
 }
