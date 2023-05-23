@@ -31,6 +31,10 @@ public class CartController {
 
     @GetMapping("carts/{cartId}")
     public Mono<DomainResponse<Cart>> getCartById(@RequestParam(name= "userId", required = false) Long userId,@PathVariable(name= "cartId", required = false) Long cartId){
-        return cartService.getCartsById(cartId);
+        try{
+            return cartService.getCartsById(cartId);
+        }catch (Exception e){
+            return  Mono.error(e);
+        }
     }
 }
