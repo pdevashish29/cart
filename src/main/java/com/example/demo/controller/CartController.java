@@ -35,6 +35,7 @@ public class CartController {
             System.out.println("conflict");
             return cartService.getCartsById(cartId);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return  Mono.error(e);
         }
     }
