@@ -34,6 +34,7 @@ public class CartController {
         try{
             return cartService.getCartsById(cartId);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return  Mono.error(e);
         }
     }
