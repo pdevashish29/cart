@@ -11,4 +11,6 @@ public class JanController {
     public String getIndex(){
         return "Jan";
     }
+
+
 }

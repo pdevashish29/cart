@@ -32,7 +32,7 @@ class ProductControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         var domainResponse= mapper.readValue(new File("src/test/resources/Products.json"), DomainResponse.class);
         Mockito.when(productService.getProducts()).thenReturn(Mono.just(domainResponse));
-        StepVerifier.create(productController.getProducts()).consumeNextWith(item -> assertNotNull(item.getData())).verifyComplete();
+        StepVerifier.create(productController.getProducts(null)).consumeNextWith(item -> assertNotNull(item.getData())).verifyComplete();
 
     }
 

@@ -7,10 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -22,12 +24,15 @@ public class ProductController {
 
 
     @GetMapping("/products")
-    public Mono<DomainResponse<List<Product>>>  getProducts() {
+    public Mono<DomainResponse<List<Product>>>  getProducts(@RequestHeader Map<String,String> headers) {
         log.info("products");
+        log.info(headers +"{}");
         long t1 = System.currentTimeMillis();
         var response= productService.getProducts();
         long t2 = System.currentTimeMillis();
-        log.info(t2-t1+"");
+        log.info(t1+"ms");
+        log.info(t2+"ms");
+        log.info(t2-t1+"ms");
         return  response;
     }
 
@@ -38,7 +43,9 @@ public class ProductController {
         long t1 = System.currentTimeMillis();
         var response= productService.getProductById(productId);
         long t2 = System.currentTimeMillis();
-        log.info(t2-t1+"");
+        log.info(t1+"ms");
+        log.info(t2+"ms");
+        log.info(t2-t1+"ms");
         return  response;
     }
 
