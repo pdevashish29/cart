@@ -20,7 +20,12 @@ public class CartController {
 
     @GetMapping("carts")
     public Mono<DomainResponse<List<Cart>>> getCarts(@RequestParam(name= "userId", required = false) Long userId){
-       return cartService.getCart();
+      try{
+          return cartService.getCart();
+      }catch (Exception e){
+          System.out.println(e.getCause());
+          return  Mono.error(e);
+      }
     }
 
     @GetMapping("carts/{cartId}")
